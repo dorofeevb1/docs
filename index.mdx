@@ -1,71 +1,54 @@
----
-title: Introduction
-description: "Welcome to the home of your new documentation"
----
+<!-- sidebar.component.html -->
+<aside class="sidebar" [ngClass]="{'sidebar--collapsed': isCollapsed}" role="navigation" aria-label="Main navigation">
+  <!-- Hamburger button for mobile -->
+  <button class="sidebar__hamburger" (click)="toggleMenu()" aria-label="Toggle menu" aria-expanded="{{!isCollapsed}}" *ngIf="isMobile">
+    <span class="sidebar__hamburger-icon material-icons">menu</span>
+  </button>
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.png"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.png"
-  alt="Hero Dark"
-/>
+  <!-- Sidebar content -->
+  <div class="sidebar__content" [@slideInOut]="isCollapsed ? 'out' : 'in'">
+    <!-- Logo -->
+    <div class="sidebar__logo">
+      <svg width="200" height="50" aria-label="ВНГРФ Logo">
+        <rect width="200" height="50" fill="#9B1D64"/>
+        <text x="10" y="35" fill="#FFFFFF" font-family="Montserrat, sans-serif" font-weight="700" font-size="24">ВНГРФ</text>
+      </svg>
+    </div>
 
-## Setting up
-
-The first step to world-class documentation is setting up your editing environments.
-
-<CardGroup cols={2}>
-  <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
-  >
-    Get your docs set up locally for easy development
-  </Card>
-  <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
-  >
-    Preview your changes before you push to make sure they're perfect
-  </Card>
-</CardGroup>
-
-## Make it yours
-
-Update your docs to your brand and add valuable content for the best user conversion.
-
-<CardGroup cols={2}>
-  <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
-  >
-    Customize your docs to your company's colors and brands
-  </Card>
-  <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
-  >
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card
-    title="Add Components"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/content/components/accordions"
-  >
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/customers"
-  >
-    Check out our showcase of our favorite documentation
-  </Card>
-</CardGroup>
+    <!-- Navigation -->
+    <nav class="sidebar__nav">
+      <ul class="sidebar__nav-list">
+        <li class="sidebar__nav-item" routerLinkActive="sidebar__nav-item--active">
+          <a class="sidebar__nav-link" routerLink="/news" aria-label="News Feed">
+            <span class="material-icons sidebar__nav-icon">article</span>
+            <span class="sidebar__nav-text">Лента</span>
+          </a>
+        </li>
+        <li class="sidebar__nav-item" routerLinkActive="sidebar__nav-item--active">
+          <a class="sidebar__nav-link" routerLink="/team" aria-label="Our Team">
+            <span class="material-icons sidebar__nav-icon">groups</span>
+            <span class="sidebar__nav-text">Наши люди</span>
+          </a>
+        </li>
+        <li class="sidebar__nav-item" routerLinkActive="sidebar__nav-item--active">
+          <a class="sidebar__nav-link" routerLink="/about" aria-label="About Us">
+            <span class="material-icons sidebar__nav-icon">info</span>
+            <span class="sidebar__nav-text">О нас</span>
+          </a>
+        </li>
+        <li class="sidebar__nav-item" routerLinkActive="sidebar__nav-item--active" *ngIf="isAdmin">
+          <a class="sidebar__nav-link" routerLink="/admin" aria-label="Admin Panel">
+            <span class="material-icons sidebar__nav-icon">settings</span>
+            <span class="sidebar__nav-text">Админ-панель</span>
+          </a>
+        </li>
+        <li class="sidebar__nav-item" routerLinkActive="sidebar__nav-item--active">
+          <a class="sidebar__nav-link" (click)="handleAuth()" aria-label="{{isLoggedIn ? 'Logout' : 'Login'}}">
+            <span class="material-icons sidebar__nav-icon">{{isLoggedIn ? 'logout' : 'lock'}}</span>
+            <span class="sidebar__nav-text">{{isLoggedIn ? 'Выход' : 'Логин'}}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>
